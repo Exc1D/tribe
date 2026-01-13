@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tribe - Community Forum</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Hero Section -->
+    <div class="hero">
+      <div class="hero-content">
+        <h1>Tribe</h1>
+        <p>
+          A place where ideas meet community. Share thoughts, spark discussions,
+          and connect with like-minded people.
+        </p>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-number">2.5K+</span>
+            <span class="stat-label">Members</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">10K+</span>
+            <span class="stat-label">Posts</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">50+</span>
+            <span class="stat-label">Topics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+      <!-- Post Input Area -->
+      <div class="post-input-card">
+        <div class="post-input-header">
+          <img
+            src="https://api.dicebear.com/7.x/avataaars/svg?seed=User"
+            alt="Your avatar"
+            class="avatar"
+          />
+          <div>
+            <div class="author-name">Share with the tribe</div>
+            <div class="post-time">What's on your mind?</div>
+          </div>
+        </div>
+        <textarea
+          id="post-input"
+          placeholder="Start a discussion..."
+        ></textarea>
+        <div class="post-actions">
+          <select id="category-select" class="category-select">
+            <option value="general">💬 General</option>
+            <option value="tech">💻 Tech</option>
+            <option value="design">🎨 Design</option>
+            <option value="business">💼 Business</option>
+            <option value="lifestyle">🌟 Lifestyle</option>
+          </select>
+          <button id="post-btn" class="post-btn">Post</button>
+        </div>
+      </div>
+
+      <!-- Feed -->
+      <div id="feed">
+        <!-- Posts will be rendered here -->
+      </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
