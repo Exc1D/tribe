@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 
 // TODO: Get DOM elements
 
-// TODO: Add event listener for clicks (like, bookmark, reply toggle, post span)
+// Event Delegation
 document.addEventListener("click", (e) => {
   const target = e.target.closest(
     "[data-like], [data-bookmark], [data-reply], #post-btn"
@@ -11,14 +11,16 @@ document.addEventListener("click", (e) => {
 
   if (target.dataset.like) {
     handleLikeClick(target.dataset.like);
-  } else if (e.target.dataset.bookmark) {
+  } else if (target.dataset.bookmark) {
     console.log("click");
+    handleBookmarkClick(target.dataset.bookmark);
   } else if (e.target.dataset.reply) {
     console.log("click");
   } else if (e.target.id === "post-btn") {
     console.log("click");
   }
 });
+
 function handleLikeClick(postId) {
   const targetPost = forumData.find((post) => post.uuid === postId);
   if (!targetPost) return;
@@ -34,10 +36,15 @@ function handleLikeClick(postId) {
 
 // TODO: Function to handle bookmark click
 function handleBookmarkClick(postId) {
-  // Find the post by uuid
-  // Toggle isBookmarked
-  // Increment or decrement bookmarks
-  // Re-render
+  const targetPost = forumData.find((post) => post.uuid === postId);
+  if (targetPost.isBookmarked) {
+    targetPost.bookmarks--;
+  } else {
+    targetPost.bookmarks++;
+  }
+
+  targetPost.isBookmarked = !targetPost.isBookmarked;
+  render();
 }
 
 // TODO: Function to handle reply toggle
