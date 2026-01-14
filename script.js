@@ -14,8 +14,8 @@ document.addEventListener("click", (e) => {
   } else if (target.dataset.bookmark) {
     console.log("click");
     handleBookmarkClick(target.dataset.bookmark);
-  } else if (e.target.dataset.reply) {
-    console.log("click");
+  } else if (target.dataset.reply) {
+    handleReplyToggle(target.dataset.reply);
   } else if (e.target.id === "post-btn") {
     console.log("click");
   }
@@ -49,6 +49,7 @@ function handleBookmarkClick(postId) {
 // TODO: Function to handle reply toggle
 function handleReplyToggle(postId) {
   // Toggle the hidden class on replies section
+  document.getElementById(`replies-${postId}`).classList.toggle("hidden");
 }
 
 // TODO: Function to handle post span click
@@ -83,27 +84,25 @@ function getCategoryDisplay(category) {
 
 function getFeedHtml() {
   let feedHTML = "";
-  let repliesHTML = "";
 
   forumData.forEach((post) => {
+    let repliesHTML = "";
     if (post.replies.length > 0) {
+      repliesHTML = `<div class="replies-section hidden" id="replies-${post.uuid}">`;
       post.replies.forEach((reply) => {
         repliesHTML += `
-    <div class="replies-section" id="replies-${post.uuid}">
-          <div class="reply">
-            <div class="reply-header">
-              <img class="reply-avatar" src="${reply.avatar}" alt="Avatar of ${post.replies.username}">
-              <span class="reply-author">${reply.username}</span>
-            </div>
-            <div class="reply-content">
-            ${reply.content}
-            </div>
-          </div>
-    </div>
+      <div class="reply">
+        <div class="reply-header">
+          <img class="reply-avatar" src="${reply.avatar}" alt="Avatar of ${reply.username}">
+          <span class="reply-author">${reply.username}</span>
+        </div>
+        <div class="reply-content">
+          ${reply.content}
+        </div>
+      </div>
     `;
       });
-    } else {
-      repliesHTML = "</div>";
+      repliesHTML += `</div>`;
     }
     feedHTML += `
       <div class="post">
