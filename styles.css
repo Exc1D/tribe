@@ -33,32 +33,15 @@ body {
 .hero::before {
   top: -150px;
   left: -200px;
-  background: repeating-linear-gradient(
-    135deg,
-    transparent,
-    transparent 8px,
-    #d0d0d0 8px,
-    #d0d0d0 10px
-  );
+  background: radial-gradient(circle, #d0d0d0 2px, transparent 2px);
+  background-size: 20px 20px;
 }
 
 .hero::after {
   bottom: -100px;
   right: -150px;
-  background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 12px,
-      #c0c0c0 6px,
-      #c0c0c0 8px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 6px,
-      #c0c0c0 6px,
-      #c0c0c0 8px
-    );
+  background: radial-gradient(circle, #c0c0c0 2px, transparent 2px);
+  background-size: 15px 15px;
 }
 
 .hero-content {
@@ -79,7 +62,7 @@ body {
 
 .hero p {
   font-size: 24px;
-  color: #4a4a4a;
+  color: #1a1a1a;
   margin-bottom: 50px;
   line-height: 1.5;
   max-width: 900px;
