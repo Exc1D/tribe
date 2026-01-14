@@ -3,15 +3,8 @@ import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 
 // TODO: Get DOM elements
 
-// TODO: Add event listener for clicks (like, bookmark, reply toggle, post button)
-
-// TODO: Function to handle like click
-function handleLikeClick(postId) {
-  // Find the post by uuid
-  // Toggle isLiked
-  // Increment or decrement likes
-  // Re-render
-}
+// TODO: Add event listener for clicks (like, bookmark, reply toggle, post span)
+//push
 
 // TODO: Function to handle bookmark click
 function handleBookmarkClick(postId) {
@@ -26,7 +19,7 @@ function handleReplyToggle(postId) {
   // Toggle the hidden class on replies section
 }
 
-// TODO: Function to handle post button click
+// TODO: Function to handle post span click
 function handlePostBtnClick() {
   // Get post input value and category
   // Create new post object with:
@@ -47,34 +40,64 @@ function handlePostBtnClick() {
 // TODO: Function to generate category emoji and label
 function getCategoryDisplay(category) {
   const categories = {
-    general: "💬 General",
-    tech: "💻 Tech",
-    design: "🎨 Design",
-    business: "💼 Business",
-    lifestyle: "🌟 Lifestyle",
+    general: "General",
+    tech: "Tech",
+    design: "Design",
+    business: "Business",
+    lifestyle: "Lifestyle",
   };
   return categories[category] || "💬 General";
 }
 
-// TODO: Function to generate feed HTML
 function getFeedHtml() {
-  // Loop through forumData
-  // For each post, create HTML with:
-  // - Post header (avatar, username, time, category badge)
-  // - Post content
-  // - Action buttons (reply, like, bookmark)
-  // - Replies section (hidden by default)
-  // Return complete HTML string
+  let feedHTML = "";
+
+  forumData.forEach((post) => {
+    feedHTML += `
+      <div class="post">
+        <div class="post-header">
+          <img class="avatar" src="${post.avatar}" alt="Avatar of ${
+      post.username
+    }">
+          <div class="post-author">
+            <p class="author-name">${post.username}</p>
+            <p class="post-time">${post.timeAgo}</p>
+          </div>
+          <span class="category-badge"></span>
+        </div>
+        <div class="post-content">
+          ${post.content}
+        </div>
+        <div class="post-actions-bar">
+          <button class="action-btn" data-reply="${post.uuid}">
+            <i class="fa-regular fa-comment-dots"></i>
+            <span>${post.replies.length}</span>
+          </button>
+          <button class="action-btn ${
+            post.isLiked ? "liked" : ""
+          }" data-like="${post.uuid}">
+            <i class="fa-solid fa-heart"></i>
+            <span>${post.likes}</span>
+          </button>
+          <button class="action-btn ${
+            post.isBookmarked ? "bookmarked" : ""
+          }" data-bookmark="${post.uuid}">
+            <i class="fa-solid fa-bookmark"></i>
+            <span>${post.bookmarks}</span>
+          </button>
+        </div>
+      </div>
+    `;
+  });
+  return feedHTML;
 }
 
-// TODO: Function to render the feed
 function render() {
-  // Get feed element
-  // Set innerHTML to getFeedHtml()
+  const feed = document.getElementById("feed");
+  feed.innerHTML = getFeedHtml();
 }
 
-// TODO: Call render to initialize
-
+render();
 /*
         CHALLENGES - Using the SAME PATTERNS from Twimba:
         
@@ -82,7 +105,7 @@ function render() {
            - Handle like clicks
            - Handle bookmark clicks  
            - Handle reply toggle clicks
-           - Handle post button clicks
+           - Handle post span clicks
         
         2. Implement handleLikeClick(postId)
            - Use .filter() to find the post by uuid
