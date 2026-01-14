@@ -36,6 +36,8 @@ function handleLikeClick(postId) {
 
 function handleBookmarkClick(postId) {
   const targetPost = forumData.find((post) => post.uuid === postId);
+  if (!targetPost) return;
+
   if (targetPost.isBookmarked) {
     targetPost.bookmarks--;
   } else {
@@ -66,6 +68,10 @@ function handlePostBtnClick() {
     isBookmarked: false,
     uuid: uuidv4(),
   };
+
+  if (postInput.value === "") {
+    alert("Come, share your thoughts with the tribe!");
+  }
 
   forumData.unshift(newPost);
   postInput.value = "";
@@ -140,48 +146,3 @@ function render() {
 }
 
 render();
-/*
-        CHALLENGES - Using the SAME PATTERNS from Twimba:
-        
-        1. Set up event delegation (one click listener on document)
-           - Handle like clicks
-           - Handle bookmark clicks  
-           - Handle reply toggle clicks
-           - Handle post span clicks
-        
-        2. Implement handleLikeClick(postId)
-           - Use .filter() to find the post by uuid
-           - Toggle isLiked property
-           - Increment/decrement likes count
-           - Call render()
-        
-        3. Implement handleBookmarkClick(postId)
-           - Same pattern as like, but for bookmarks
-        
-        4. Implement handleReplyToggle(postId)
-           - Use classList.toggle() to show/hide replies
-        
-        5. Implement handlePostBtnClick()
-           - Get textarea value
-           - Create new post object
-           - Use .unshift() to add to beginning of array
-           - Clear textarea
-           - Call render()
-        
-        6. Implement getFeedHtml()
-           - Loop through forumData with .forEach()
-           - Build HTML string for each post
-           - Include replies HTML if replies exist
-           - Add data attributes for event delegation
-           - Apply conditional classes (liked, bookmarked)
-        
-        7. Implement render()
-           - Update feed innerHTML
-        
-        BONUS CHALLENGES:
-        - Add a character counter for the textarea
-        - Add validation (can't post empty content)
-        - Add a "delete post" feature
-        - Persist data to localStorage
-        - Add post editing functionality
-        */
