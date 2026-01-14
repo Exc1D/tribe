@@ -4,7 +4,33 @@ import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 // TODO: Get DOM elements
 
 // TODO: Add event listener for clicks (like, bookmark, reply toggle, post span)
-//push
+document.addEventListener("click", (e) => {
+  const target = e.target.closest(
+    "[data-like], [data-bookmark], [data-reply], #post-btn"
+  );
+
+  if (target.dataset.like) {
+    handleLikeClick(target.dataset.like);
+  } else if (e.target.dataset.bookmark) {
+    console.log("click");
+  } else if (e.target.dataset.reply) {
+    console.log("click");
+  } else if (e.target.id === "post-btn") {
+    console.log("click");
+  }
+});
+function handleLikeClick(postId) {
+  const targetPost = forumData.find((post) => post.uuid === postId);
+  if (!targetPost) return;
+
+  if (targetPost.isLiked) {
+    targetPost.likes--;
+  } else {
+    targetPost.likes++;
+  }
+  targetPost.isLiked = !targetPost.isLiked;
+  render();
+}
 
 // TODO: Function to handle bookmark click
 function handleBookmarkClick(postId) {
@@ -63,7 +89,7 @@ function getFeedHtml() {
             <p class="author-name">${post.username}</p>
             <p class="post-time">${post.timeAgo}</p>
           </div>
-          <span class="category-badge"></span>
+          <span class="category-badge">${post.category}</span>
         </div>
         <div class="post-content">
           ${post.content}
