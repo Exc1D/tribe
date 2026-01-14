@@ -34,7 +34,6 @@ function handleLikeClick(postId) {
   render();
 }
 
-// TODO: Function to handle bookmark click
 function handleBookmarkClick(postId) {
   const targetPost = forumData.find((post) => post.uuid === postId);
   if (targetPost.isBookmarked) {
@@ -84,8 +83,28 @@ function getCategoryDisplay(category) {
 
 function getFeedHtml() {
   let feedHTML = "";
+  let repliesHTML = "";
 
   forumData.forEach((post) => {
+    if (post.replies.length > 0) {
+      post.replies.forEach((reply) => {
+        repliesHTML += `
+    <div class="replies-section" id="replies-${post.uuid}">
+          <div class="reply">
+            <div class="reply-header">
+              <img class="reply-avatar" src="${reply.avatar}" alt="Avatar of ${post.replies.username}">
+              <span class="reply-author">${reply.username}</span>
+            </div>
+            <div class="reply-content">
+            ${reply.content}
+            </div>
+          </div>
+    </div>
+    `;
+      });
+    } else {
+      repliesHTML = "</div>";
+    }
     feedHTML += `
       <div class="post">
         <div class="post-header">
@@ -119,6 +138,7 @@ function getFeedHtml() {
             <span>${post.bookmarks}</span>
           </button>
         </div>
+        ${repliesHTML}
       </div>
     `;
   });
