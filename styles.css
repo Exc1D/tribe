@@ -24,40 +24,41 @@ body {
 .hero::after {
   content: "";
   position: absolute;
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   border-radius: 50%;
+  opacity: 1;
 }
 
 .hero::before {
-  top: -100px;
-  left: -100px;
+  top: -150px;
+  left: -200px;
+  background: repeating-linear-gradient(
+    135deg,
+    transparent,
+    transparent 8px,
+    #d0d0d0 8px,
+    #d0d0d0 10px
+  );
+}
+
+.hero::after {
+  bottom: -100px;
+  right: -150px;
   background: repeating-linear-gradient(
       0deg,
       transparent,
-      transparent 2px,
-      #d0d0d0 2px,
-      #d0d0d0 3px
+      transparent 12px,
+      #c0c0c0 6px,
+      #c0c0c0 8px
     ),
     repeating-linear-gradient(
       90deg,
       transparent,
-      transparent 2px,
-      #d0d0d0 2px,
-      #d0d0d0 3px
+      transparent 6px,
+      #c0c0c0 6px,
+      #c0c0c0 8px
     );
-}
-
-.hero::after {
-  bottom: -50px;
-  right: -50px;
-  background: repeating-linear-gradient(
-    45deg,
-    transparent,
-    transparent 3px,
-    #c0c0c0 3px,
-    #c0c0c0 4px
-  );
 }
 
 .hero-content {
