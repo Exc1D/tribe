@@ -1,13 +1,13 @@
 import { forumData } from "./data.js";
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 
-// TODO: Get DOM elements
-
 // Event Delegation
 document.addEventListener("click", (e) => {
   const target = e.target.closest(
     "[data-like], [data-bookmark], [data-reply], #post-btn"
   );
+
+  if (!target) return;
 
   if (target.dataset.like) {
     handleLikeClick(target.dataset.like);
@@ -16,8 +16,8 @@ document.addEventListener("click", (e) => {
     handleBookmarkClick(target.dataset.bookmark);
   } else if (target.dataset.reply) {
     handleReplyToggle(target.dataset.reply);
-  } else if (e.target.id === "post-btn") {
-    console.log("click");
+  } else if (target.id === "post-btn") {
+    handlePostBtnClick();
   }
 });
 
@@ -46,40 +46,30 @@ function handleBookmarkClick(postId) {
   render();
 }
 
-// TODO: Function to handle reply toggle
 function handleReplyToggle(postId) {
-  // Toggle the hidden class on replies section
   document.getElementById(`replies-${postId}`).classList.toggle("hidden");
 }
 
-// TODO: Function to handle post span click
 function handlePostBtnClick() {
-  // Get post input value and category
-  // Create new post object with:
-  // - username: 'You'
-  // - avatar: user's avatar
-  // - current category
-  // - timeAgo: 'Just now'
-  // - content from textarea
-  // - likes: 0, bookmarks: 0
-  // - empty replies array
-  // - isLiked: false, isBookmarked: false
-  // - new uuid
-  // Add to beginning of forumData array
-  // Clear textarea
-  // Re-render
-}
-
-// TODO: Function to generate category emoji and label
-function getCategoryDisplay(category) {
-  const categories = {
-    general: "General",
-    tech: "Tech",
-    design: "Design",
-    business: "Business",
-    lifestyle: "Lifestyle",
+  const postInput = document.getElementById("post-input");
+  const category = document.getElementById("category-select");
+  let newPost = {
+    username: "You",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=User",
+    category: `${category.value}`,
+    timeAgo: "Just now",
+    content: `${postInput.value}`,
+    likes: 0,
+    bookmarks: 0,
+    replies: [],
+    isLiked: false,
+    isBookmarked: false,
+    uuid: uuidv4(),
   };
-  return categories[category] || "💬 General";
+
+  forumData.unshift(newPost);
+  postInput.value = "";
+  render();
 }
 
 function getFeedHtml() {
